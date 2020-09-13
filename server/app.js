@@ -27,16 +27,14 @@ app.post('/submit',  (req, res) => {
   let maxChapter = req.body.maxChap;
     axios.get(baseURL+'/'+chapter)
     .catch((err) => {
-      console.log(err);
+      console.log('Error getting fic', err);
     })
     .then((res)=> {
       const chapterText = $('#storytext', res.data).html();
       fs.writeFile('public/fics/'+ficName+'.txt', chapterText, (err) => {
         if (err) {
-          console.log(err);
-        } else {
-          console.log('Chapter ' + chapter + ' saved!');
-        }
+          console.log('Error writing file',err);
+        } 
       });
 
       while (chapter <= maxChapter) {
@@ -49,16 +47,14 @@ app.post('/submit',  (req, res) => {
           const chapterText = $('#storytext', res.data).html();
           fs.appendFile('public/fics/'+ficName+'.txt', chapterText, (err) => {
             if (err) {
-              console.log(err);
-            } else {
-              console.log('Chapter ' + chapter + ' saved!');
+              console.log('Error appending file', err);
             }
           });
         })
       }
 
     });
-    console.log('end');
+    console.log('Compilation completed');
     res.sendFile(path.join(__dirname + '/public' + '/fics/'+ficName+'.txt'));
 
 });
