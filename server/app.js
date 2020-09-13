@@ -19,7 +19,6 @@ app.get('/', (req, res) => {
 });
 
 app.post('/submit',  (req, res) => {
-  //webscrape the url
   let baseURLArr = req.body.url.split('/');
   let ficName = baseURLArr.pop();
   baseURLArr.pop();

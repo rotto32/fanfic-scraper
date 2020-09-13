@@ -12,10 +12,8 @@ $(document).ready(function() {
             console.log(err);
         })
         .then((res) => {
-            // console.log(res.data);
             $('#fic').append(res.data);
             $('#info-submit').hide();
-            $("#post-info").hide();
         })
         
     })
