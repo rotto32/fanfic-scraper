@@ -25,6 +25,7 @@ app.post('/submit',  (req, res) => {
   baseURLArr.pop();
   const baseURL = baseURLArr.join('/');
   let chapter = 1;
+  let maxChapter = req.body.maxChap;
     axios.get(baseURL+'/'+chapter)
     .catch((err) => {
       console.log(err);
@@ -39,17 +40,27 @@ app.post('/submit',  (req, res) => {
         }
       });
 
+      while (chapter <= maxChapter) {
+        chapter++;
+        axios.get(baseURL+'/'+chapter)
+        .catch((err) => {
+          console.log(err);
+        })
+        .then((res) => {
+          const chapterText = $('#storytext', res.data).html();
+          fs.appendFile('public/fics/'+ficName+'.txt', chapterText, (err) => {
+            if (err) {
+              console.log(err);
+            } else {
+              console.log('Chapter ' + chapter + ' saved!');
+            }
+          });
+        })
+      }
 
     });
-  // axios.get(req.body.url)
-  // .catch((err) => {
-  //   console.log(err);
-  // })
-  // .then((res)=> {
-  //   const chapterText = $('#storytext', res.data).html();
-  //   console.log(chapterText);
-  // })
-  res.send("Successful submission");
+    console.log('end');
+    res.sendFile(path.join(__dirname + '/public' + '/fics/'+ficName+'.txt'));
 
 });
 
