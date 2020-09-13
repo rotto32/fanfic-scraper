@@ -8,9 +8,11 @@ Node
 # To Use
 Download the files.
 
+Navigate to the main directory in terminal.
+
 Run `npm i` in the main directory.
 
-Navigate to the server folder, and run `node app.js --watch`.
+Run `npm run server` in the main directory.
 
 In browser, go to http://localhost:3000/
 
