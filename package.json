@@ -1,10 +1,11 @@
 {
-  "name": "scraper",
+  "name": "fanfic-scraper",
   "version": "1.0.0",
-  "description": "Webscraper",
+  "description": "Compiles fics from fanfiction.net into one webpage",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server" : "node server/app.js --watch"
   },
   "author": "Rachael Otto",
   "license": "MIT",

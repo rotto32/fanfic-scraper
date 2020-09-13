@@ -31,27 +31,31 @@ app.post('/submit',  (req, res) => {
     })
     .then((res)=> {
       const chapterText = $('#storytext', res.data).html();
-      fs.writeFile('public/fics/'+ficName+'.txt', chapterText, (err) => {
+      fs.writeFile(path.join(__dirname + '/public/fics/'+ficName+'.txt'), chapterText, (err) => {
         if (err) {
-          console.log('Error writing file',err);
+          console.log('Error creating file', err);
         } 
       });
 
-      while (chapter <= maxChapter) {
-        chapter++;
-        axios.get(baseURL+'/'+chapter)
-        .catch((err) => {
-          console.log(err);
-        })
-        .then((res) => {
-          const chapterText = $('#storytext', res.data).html();
-          fs.appendFile('public/fics/'+ficName+'.txt', chapterText, (err) => {
-            if (err) {
-              console.log('Error appending file', err);
-            }
-          });
-        })
-      }
+      fs.stat(path.join(__dirname + '/public/fics/'+ficName+'.txt'), function(err, stat) {
+        if (err === null) {
+          while (chapter <= maxChapter) {
+            chapter++;
+            axios.get(baseURL+'/'+chapter)
+              .catch((err) => {
+                console.log(err);
+              })
+              .then((res) => {
+                const chapterText = $('#storytext', res.data).html();
+                  fs.appendFile(path.join(__dirname + '/public/fics/'+ficName+'.txt'), chapterText, (err) => {
+                    if (err) {
+                      console.log('Error appending file', err);
+                    }
+                  });
+              })
+          }
+        }
+      });
 
     });
     console.log('Compilation completed');
