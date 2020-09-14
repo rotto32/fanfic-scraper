@@ -4,9 +4,11 @@ $(document).ready(function() {
         event.preventDefault();
         const url = $("#ffurl").val();
         const maxChap = $("#ffmaxchap").val();
+        const minChap = $("#ffminchap").val();
         axios.post('/submit', {
             'url': url,
             'maxChap': maxChap,
+            'minChap': minChap,
         })
         .catch((err)=> {
             console.log(err);
