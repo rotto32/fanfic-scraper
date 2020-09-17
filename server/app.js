@@ -17,7 +17,7 @@ const axiosRecursive = function (baseURL, ficName, currentChapter, maxChapter) {
     })
     .then((res) => {
       let chapterText = $('#storytext', res.data).html();
-      fs.appendFile(path.join(__dirname + '/public/fics/'+ficName+'.txt'), chapterText, (err) => {
+      fs.appendFile(path.join(__dirname + '/public/fics/'+ficName+'.html'), chapterText, (err) => {
         if (err) {
           console.log('Error appending file', err);
           return;
@@ -36,7 +36,7 @@ app.use(cors());
 
 app.use(bodyParser.json());
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '/public')));
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname + '/public' + '/index.html'));
@@ -55,11 +55,11 @@ app.post('/submit',  (req, res) => {
     })
     .then((res)=> {
       const chapterText = $('#storytext', res.data).html();
-      fs.writeFile(path.join(__dirname + '/public/fics/'+ficName+'.txt'), chapterText, (err) => {
+      fs.writeFile(path.join(__dirname + '/public/fics/'+ficName+'.html'), chapterText, (err) => {
         if (err) {
           console.log('Error creating file', err);
         } else {
-          fs.stat(path.join(__dirname + '/public/fics/'+ficName+'.txt'), function(err, stat) {
+          fs.stat(path.join(__dirname + '/public/fics/'+ficName+'.html'), function(err, stat) {
             if (err === null) {
               axiosRecursive(baseURL, ficName, Number(chapter)+1, maxChapter);
             }
@@ -67,7 +67,7 @@ app.post('/submit',  (req, res) => {
         } 
       });
     });
-    res.sendFile(path.join(__dirname + '/public' + '/fics/'+ficName+'.txt'));
+    res.sendFile(path.join(__dirname + '/public' + '/fics/'+ficName+'.html'));
 
 });
 
