@@ -16,5 +16,5 @@ Run `npm run server` in the main directory.
 
 In browser, go to http://localhost:3000/
 
-Submit requested information. If the page does not immediately show you the desired fic, wait about 30 seconds and submit the information again.
+Submit requested information. If the provided link does not show you the desired fic after the displayed time, wait a couple minutes and reload the fic page.
 
