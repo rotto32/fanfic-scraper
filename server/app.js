@@ -10,7 +10,7 @@ const port = 3000;
 
 const axiosRecursive = function (baseURL, ficName, currentChapter, maxChapter) {
   if (currentChapter <= maxChapter) {
-    console.log(baseURL, ficName, currentChapter, maxChapter);
+    console.log(currentChapter + "/" + maxChapter + " of " + ficName + " saved");
     axios.get(baseURL+'/'+currentChapter)
     .catch((err) => {
       console.log(err);
@@ -27,6 +27,7 @@ const axiosRecursive = function (baseURL, ficName, currentChapter, maxChapter) {
       });
     });
   } else {
+    console.log('Compilation completed');
     return;
   }
 }
@@ -66,7 +67,6 @@ app.post('/submit',  (req, res) => {
         } 
       });
     });
-    console.log('Compilation completed');
     res.sendFile(path.join(__dirname + '/public' + '/fics/'+ficName+'.txt'));
 
 });
